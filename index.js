@@ -3,6 +3,7 @@ const Promise = require('promise');
 const MapConfigTransformService = require('./MapConfigTransformService.js');
 
 let sources = [];
+let configs = [];
 const fetchConfigFromUrl = (url) => {
   return fetch(url).then((response) => {
     if(response.status == 200) {
@@ -15,6 +16,7 @@ const fetchConfigFromUrl = (url) => {
         const config = createMinimalConfig(source);
         var result = MapConfigTransformService.transform(config);
         if(result.layers.length !== 1) {
+          configs.push({url: url, source: source});
           if(sources.indexOf(source.ptype) === -1) {
             sources.push(source.ptype);
           }
@@ -34,4 +36,5 @@ const promises = urls.map( (url) => {
 });
 Promise.all(promises).then( (done) => {
   console.log('Sources: ',sources);
+  console.log('Configs: ',configs);
 });
