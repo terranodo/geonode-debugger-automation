@@ -1,8 +1,7 @@
 const fetch = require('node-fetch');
 const Promise = require('promise');
-//
-MapConfigTransformService = require('./MapConfigTransformService1.js');
-//
+const MapConfigTransformService = require('./MapConfigTransformService.js');
+
 let sources = [];
 const fetchConfigFromUrl = (url) => {
   return fetch(url).then((response) => {
@@ -16,7 +15,6 @@ const fetchConfigFromUrl = (url) => {
         const config = createMinimalConfig(source);
         var result = MapConfigTransformService.transform(config);
         if(result.layers.length !== 1) {
-          console.log('Source type '+source.ptype+' cant be created');
           if(sources.indexOf(source.ptype) === -1) {
             sources.push(source.ptype);
           }
@@ -34,7 +32,6 @@ const urls = ['http://geosm.adpc.net/maps/193/data', 'http://geosm.adpc.net/maps
 const promises = urls.map( (url) => {
   return fetchConfigFromUrl(url)
 });
-console.log(promises);
 Promise.all(promises).then( (done) => {
   console.log('Sources: ',sources);
-})
+});

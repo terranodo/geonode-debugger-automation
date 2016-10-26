@@ -166,4 +166,4 @@ class MapConfigTransformService {
   }
 }
 
-export default new MapConfigTransformService();
+module.exports = new MapConfigTransformService();
