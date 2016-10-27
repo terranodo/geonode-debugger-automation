@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "boundless-sdk": "^0.9.6",
+    "csv-write-stream": "^2.0.0",
     "node-fetch": "^1.6.3",
     "promise": "^7.1.1"
   },
